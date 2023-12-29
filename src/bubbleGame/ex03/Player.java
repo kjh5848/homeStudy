@@ -1,12 +1,10 @@
 package bubbleGame.ex03;
 
-import lombok.Getter;
-import lombok.Setter;
+
 
 import javax.swing.*;
 
-@Getter
-@Setter
+
 public class Player extends JLabel implements Moveable {
 
     private int x;
@@ -17,15 +15,111 @@ public class Player extends JLabel implements Moveable {
     private boolean up;
     private boolean down;
 
+    private boolean leftWallCrash;
+    private boolean rightWallCrash;
+
+    public boolean isLeftWallCrash() {
+        return leftWallCrash;
+    }
+
+    public void setLeftWallCrash(boolean leftWallCrash) {
+        this.leftWallCrash = leftWallCrash;
+    }
+
+    public boolean isRightWallCrash() {
+        return rightWallCrash;
+    }
+
+    public void setRightWallCrash(boolean rightWallCrash) {
+        this.rightWallCrash = rightWallCrash;
+    }
+
     private final int SPEED = 4;
     private final int JUMPSPEED = 2;
 
 
+
+
     private ImageIcon playerR, playerL;
+
+    @Override
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    @Override
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public boolean isLeft() {
+        return left;
+    }
+
+    public void setLeft(boolean left) {
+        this.left = left;
+    }
+
+    public boolean isRight() {
+        return right;
+    }
+
+    public void setRight(boolean right) {
+        this.right = right;
+    }
+
+    public boolean isUp() {
+        return up;
+    }
+
+    public void setUp(boolean up) {
+        this.up = up;
+    }
+
+    public boolean isDown() {
+        return down;
+    }
+
+    public void setDown(boolean down) {
+        this.down = down;
+    }
+
+    public int getSPEED() {
+        return SPEED;
+    }
+
+    public int getJUMPSPEED() {
+        return JUMPSPEED;
+    }
+
+    public ImageIcon getPlayerR() {
+        return playerR;
+    }
+
+    public void setPlayerR(ImageIcon playerR) {
+        this.playerR = playerR;
+    }
+
+    public ImageIcon getPlayerL() {
+        return playerL;
+    }
+
+    public void setPlayerL(ImageIcon playerL) {
+        this.playerL = playerL;
+    }
 
     public Player() {
         initObject();
         initSetting();
+        initBackgroundPlayerService();
     }
 
     private void initObject() {
@@ -35,7 +129,7 @@ public class Player extends JLabel implements Moveable {
     }
 
     private void initSetting() {
-        x = 55;
+        x = 80;
         y = 535;
 
         left = false;
@@ -43,11 +137,17 @@ public class Player extends JLabel implements Moveable {
         up = false;
         down = false;
 
+        leftWallCrash = false;
+        rightWallCrash = false;
+
         setIcon(playerR);
         setSize(50, 50);
         setLocation(x, y);
     }
 
+    private void initBackgroundPlayerService() {
+        new Thread((new BackgroundPlayerService(this))).start();
+    }
     @Override
     public void left() {
         System.out.println("left");
@@ -63,6 +163,7 @@ public class Player extends JLabel implements Moveable {
                     throw new RuntimeException(e);
                 }
             }
+
         }).start();
 
 
@@ -96,7 +197,7 @@ public class Player extends JLabel implements Moveable {
                 y= y-JUMPSPEED;
                 setLocation(x, y);
                 try {
-                    Thread.sleep(10);
+                    Thread.sleep(5);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -109,6 +210,7 @@ public class Player extends JLabel implements Moveable {
 
     }
 
+
     @Override
     public void down() {
         System.out.println("다운");
@@ -118,7 +220,7 @@ public class Player extends JLabel implements Moveable {
                 y= y+JUMPSPEED;
                 setLocation(x, y);
                 try {
-                    Thread.sleep(10);
+                    Thread.sleep(3);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }

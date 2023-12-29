@@ -8,6 +8,22 @@ public class BubbleFrame extends JFrame {
     private JLabel backgroundMap;
     private Player player;
 
+    public JLabel getBackgroundMap() {
+        return backgroundMap;
+    }
+
+    public void setBackgroundMap(JLabel backgroundMap) {
+        this.backgroundMap = backgroundMap;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
     public BubbleFrame() {
         initObject();
         initSetting();
@@ -43,23 +59,21 @@ public class BubbleFrame extends JFrame {
 
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_LEFT:
-                        if (!player.isLeft()) {
+                        if (!player.isLeft() && !player.isLeftWallCrash()) {
                             player.left();
                         }
 
                         player.left();
                         break;
                     case KeyEvent.VK_RIGHT:
-                        if (!player.isRight()) {
+                        if (!player.isRight() && !!player.isRightWallCrash()) {
                             player.right();
                         }
                         player.right();
                         break;
                     case KeyEvent.VK_UP:
-                        player.up();
                         if (!player.isUp() && !player.isDown()) {
                             player.up();
-                            player.down();
 
                         }
                         break;
@@ -76,6 +90,7 @@ public class BubbleFrame extends JFrame {
                     case KeyEvent.VK_RIGHT:
                         player.setRight(false);
                         break;
+
                 }
             }
         });
