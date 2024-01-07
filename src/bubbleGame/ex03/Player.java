@@ -7,8 +7,19 @@ import javax.swing.*;
 
 public class Player extends JLabel implements Moveable {
 
+
     private int x;
     private int y;
+
+    private PlayerWay playerWay;
+
+    public PlayerWay getPlayerWay() {
+        return playerWay;
+    }
+
+    public void setPlayerWay(PlayerWay playerWay) {
+        this.playerWay = playerWay;
+    }
 
     private boolean left;
     private boolean right;
@@ -17,6 +28,12 @@ public class Player extends JLabel implements Moveable {
 
     private boolean leftWallCrash;
     private boolean rightWallCrash;
+
+    private final int SPEED = 4;
+    private final int JUMPSPEED = 2;
+
+    private ImageIcon playerR, playerL;
+
 
     public boolean isLeftWallCrash() {
         return leftWallCrash;
@@ -34,13 +51,7 @@ public class Player extends JLabel implements Moveable {
         this.rightWallCrash = rightWallCrash;
     }
 
-    private final int SPEED = 4;
-    private final int JUMPSPEED = 2;
 
-
-
-
-    private ImageIcon playerR, playerL;
 
     @Override
     public int getX() {
@@ -140,6 +151,8 @@ public class Player extends JLabel implements Moveable {
         leftWallCrash = false;
         rightWallCrash = false;
 
+
+        playerWay = playerWay.RIGHT;
         setIcon(playerR);
         setSize(50, 50);
         setLocation(x, y);
@@ -150,7 +163,8 @@ public class Player extends JLabel implements Moveable {
     }
     @Override
     public void left() {
-        System.out.println("left");
+        //System.out.println("left");
+        playerWay = playerWay.LEFT;
         left = true;
         new Thread(() -> {
             while (left) {
@@ -158,9 +172,9 @@ public class Player extends JLabel implements Moveable {
                 x = x - SPEED;
                 setLocation(x, y);
                 try {
-                    Thread.sleep(10);
+                    Thread.sleep(8);
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    e.printStackTrace();;
                 }
             }
 
@@ -171,7 +185,8 @@ public class Player extends JLabel implements Moveable {
 
     @Override
     public void right() {
-        System.out.println("right");
+        //System.out.println("right");
+        playerWay = playerWay.RIGHT;
         right = true;
         new Thread(() -> {
             while (right) {
@@ -179,9 +194,9 @@ public class Player extends JLabel implements Moveable {
                 x = x + SPEED;
                 setLocation(x, y);
                 try {
-                    Thread.sleep(10);
+                    Thread.sleep(8);
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    e.printStackTrace();;
                 }
             }
         }).start();
@@ -190,7 +205,7 @@ public class Player extends JLabel implements Moveable {
 
     @Override
     public void up() {
-        System.out.println("up");
+        //System.out.println("up");
         up = true;
         new Thread(() -> {
             for (int i = 0; i < 130/JUMPSPEED; i++) {
@@ -199,7 +214,7 @@ public class Player extends JLabel implements Moveable {
                 try {
                     Thread.sleep(5);
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    e.printStackTrace();;
                 }
             }
 
@@ -213,22 +228,23 @@ public class Player extends JLabel implements Moveable {
 
     @Override
     public void down() {
-        System.out.println("다운");
         down = true;
+
         new Thread(() -> {
-            for (int i = 0; i < 130/JUMPSPEED; i++) {
+            while (down) {
                 y= y+JUMPSPEED;
                 setLocation(x, y);
                 try {
                     Thread.sleep(3);
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    e.printStackTrace();
+
                 }
             }
 
-            down = false;
         }).start();
     }
+
 }
 
 

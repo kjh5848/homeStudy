@@ -1,32 +1,31 @@
-package ex06;
+package ex06.test;
 
-public class Car {
+import ex06.Car;
+
+public class Cartest01 {
     String company = "현대자동차";
     String model;
     String color;
     int maxSpeed;
 
-    public Car() {
+
+    public Cartest01() {
 
     }
 
-
-    public Car(String model) {
+    public Cartest01(String model) {
         this(model, "은색", 250);
+
     }
 
-    public Car(String model, String color) {
+    public Cartest01(String model, String color) {
         this(model, color, 250);
     }
 
-    public Car(String model, String color, int maxSpeed) {
+    public Cartest01(String model, String color, int maxSpeed) {
         this.model = model;
         this.color = color;
         this.maxSpeed = maxSpeed;
     }
 
-
-
 }
-
-

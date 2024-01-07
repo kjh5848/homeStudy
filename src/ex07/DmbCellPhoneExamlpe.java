@@ -1,6 +1,6 @@
 package ex07;
 
-public class DmbCellPhoneExamlpe {
+public class DmbCellPhoneExamlpe{
     public static void main(String[] args) {
         DmbCellPhone d = new DmbCellPhone("자바폰", "검정", 10);
 

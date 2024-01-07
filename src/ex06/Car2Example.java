@@ -11,7 +11,7 @@ public class Car2Example {
 
         int num = c.setGas(10);
         for (int i = 0; i < 10; i++) {
-
+            num--;
             System.out.println("가스를 주입하세요: "+num);
 
             boolean gasState = c.isLeftGas();

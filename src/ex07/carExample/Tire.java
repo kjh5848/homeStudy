@@ -1,9 +1,9 @@
-package ex07;
+package ex07.carExample;
 
 public class Tire {
-    public int maxRotation;
-    public int accumulatedRotation;
-    public String location;
+    public int maxRotation; // 최대회전수(타이어 수명)
+    public int accumulatedRotation; // 누적회전수
+    public String location; // 타이어의 위치
 
 
     public Tire(String location, int maxRotation) {

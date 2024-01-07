@@ -7,6 +7,7 @@ public class CellPhone {
 
     //생성자
 
+
     //메소드
     void powerOn() {         System.out.println("전원을 킵니다.");    }
     void powerOff() {         System.out.println("전원을 끕니다.");    }
